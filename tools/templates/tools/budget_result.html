@@ -12,12 +12,12 @@
   </form>
 
   {% if result %}
-  <div class="bg-gray-100 p-4 rounded-xl">
-    <p><strong>Total Income:</strong> ${{ result.income }}</p>
-    <p><strong>Total Expenses:</strong> ${{ result.total_expenses }}</p>
-    <p><strong>Balance:</strong> ${{ result.balance }}</p>
-    <p><strong>Savings Goal:</strong> ${{ result.savings_goal }}</p>
-    <p><strong>Status:</strong> {{ result.status }}</p>
+    <p>Total Expenses (Rent, Groceries, Utilities): ${{ result.total_expenses }}</p>
+    <p>Balance after Expenses: ${{ result.balance }}</p>
+    <p>Savings Goal: ${{ result.savings_goal }}</p>
+    <p>Final Surplus After Savings: ${{ result.surplus_after_savings }}</p>
+    <p>Status: {{ result.status }}</p>
+
 
     <hr class="my-4">
 

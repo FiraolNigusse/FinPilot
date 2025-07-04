@@ -7,26 +7,28 @@ def calculate_budget(data):
     utilities = data['utilities']
     savings_goal = data.get('savings_goal') or 0
 
-    total_expenses = rent + groceries + utilities + savings_goal
+    total_expenses = rent + groceries + utilities
     balance = income - total_expenses
+    surplus_after_savings = balance - savings_goal
 
-    status = "Healthy" if balance >= savings_goal else "Needs Adjustment"
+    status = "Healthy" if surplus_after_savings >= 0 else "Needs Adjustment"
 
     suggestions = []
     if rent > Decimal("0.4") * income:
-        suggestions.append("🏠 Your rent is more than 40% of your income — consider downsizing or renegotiating.")
+        suggestions.append("🏠 Your rent is more than 40% of your income — consider downsizing.")
     if groceries > Decimal("0.3") * income:
-        suggestions.append("🛒 Groceries take a large chunk — plan meals or buy in bulk.")
+        suggestions.append("🛒 Groceries are high — consider planning meals.")
     if balance < 0:
-        suggestions.append("🔴 You're overspending — adjust your expenses.")
-    if balance > Decimal("0.2") * income:
-        suggestions.append("✅ Great! You have a good buffer — consider investing or saving more.")
+        suggestions.append("🔴 You're overspending — reduce your expenses.")
+    elif surplus_after_savings < 0:
+        suggestions.append("💡 You're not hitting your savings goal — try cutting back more.")
 
     return {
         "income": income,
         "total_expenses": total_expenses,
         "balance": balance,
         "savings_goal": savings_goal,
+        "surplus_after_savings": surplus_after_savings,
         "status": status,
         "suggestions": suggestions
     }
