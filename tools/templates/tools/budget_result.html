@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="max-w-2xl mx-auto mt-10 p-6 bg-white shadow-lg rounded-2xl" id="form-wrapper">
+  <h2 class="text-2xl font-semibold text-center mb-4">💡 Smart Budget Results</h2>
+
+  <form method="post" class="mb-6">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-xl w-full">
+      Recalculate
+    </button>
+  </form>
+
+  {% if result %}
+  <div class="bg-gray-100 p-4 rounded-xl">
+    <p><strong>Total Income:</strong> ${{ result.income }}</p>
+    <p><strong>Total Expenses:</strong> ${{ result.total_expenses }}</p>
+    <p><strong>Balance:</strong> ${{ result.balance }}</p>
+    <p><strong>Savings Goal:</strong> ${{ result.savings_goal }}</p>
+    <p><strong>Status:</strong> {{ result.status }}</p>
+
+    <hr class="my-4">
+
+    <h3 class="font-bold">Insights:</h3>
+    <ul class="list-disc ml-6 mt-2 text-sm">
+      {% for tip in result.suggestions %}
+        <li>{{ tip }}</li>
+      {% empty %}
+        <li>No suggestions — you're on track!</li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}

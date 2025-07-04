@@ -19,5 +19,29 @@
   <footer class="text-center text-sm text-gray-500 py-4">
     © 2025 FinPilot – Smart Finance Tools
   </footer>
+  <script>
+    const form = document.querySelector("form");
+    if (form) {
+      form.addEventListener("submit", function () {
+        const btn = form.querySelector("button[type='submit']");
+        btn.innerHTML = `<svg class="animate-spin h-5 w-5 text-white mx-auto" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+        </svg>`;
+        btn.disabled = true;
+      });
+    }
+  </script>
+  
 </body>
+{% if messages %}
+  <div class="max-w-2xl mx-auto mt-6 space-y-2">
+    {% for message in messages %}
+      <div class="p-3 rounded-xl text-white {% if message.tags == 'success' %}bg-green-600{% else %}bg-red-600{% endif %}">
+        {{ message }}
+      </div>
+    {% endfor %}
+  </div>
+{% endif %}
+
 </html>
