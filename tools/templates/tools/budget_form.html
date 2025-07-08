@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="max-w-xl mx-auto mt-10 p-6 bg-white rounded-2xl shadow-md">
+  <h1 class="text-2xl font-bold mb-4 text-center">💰 Budget Planner</h1>
+
+  <form method="post" class="space-y-4">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-xl">
+      Calculate
+    </button>
+  </form>
+
+  {% if result %}
+  <div class="mt-6 p-4 bg-gray-100 rounded-xl text-sm">
+    <p><strong>Total Expenses:</strong> ${{ result.total_expenses }}</p>
+    <p><strong>Remaining Balance:</strong> ${{ result.balance }}</p>
+    <p><strong>Savings Goal:</strong> ${{ result.savings_goal }}</p>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}
